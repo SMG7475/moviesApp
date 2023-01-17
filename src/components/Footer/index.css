@@ -1,0 +1,32 @@
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.footer-icon {
+  height: 21px;
+  width: 21px;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.footer-text {
+  font-family: 'HK Grotesk';
+  font-weight: 600;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+@media screen and (max-width: 767px) {
+  .footer-icon {
+    width: 14px;
+    height: 16px;
+  }
+
+  .footer-text {
+    font-size: 12px;
+  }
+}

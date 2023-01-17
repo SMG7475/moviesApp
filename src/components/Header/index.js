@@ -1,134 +1,93 @@
 import {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {HiOutlineSearch} from 'react-icons/hi'
-import {AiFillCloseCircle} from 'react-icons/ai'
-import {MdMenuOpen} from 'react-icons/md'
 import './index.css'
 
 class Header extends Component {
-  state = {showMenu: false, currentPath: ''}
+  state = {menuClicked: false}
 
-  componentDidMount() {
-    const path = window.location.pathname
-    this.setState({currentPath: path})
-  }
-
-  showSearchInput = () => {
-    const {currentPath} = this.state
-    return currentPath === '/search'
-  }
-
-  onShowSearchInput = () => {
-    const {getSearchApiData} = this.props
-    const showInput = this.showSearchInput()
-    if (showInput) {
-      getSearchApiData()
-    }
-  }
-
-  toggleMenuItems = () => {
-    this.setState(prevState => ({showMenu: !prevState.showMenu}))
-  }
-
-  onChangeSearchInput = event => {
-    const {changeSearchInput} = this.props
-    changeSearchInput(event.target.value)
-  }
-
-  onKeyDownEnter = event => {
-    const {getSearchApiData} = this.props
-    if (event.key === 'Enter') {
-      getSearchApiData()
-    }
+  onClickMenu = () => {
+    this.setState(prevState => ({menuClicked: !prevState.menuClicked}))
   }
 
   render() {
-    const {showMenu, currentPath} = this.state
-    const showInput = this.showSearchInput()
-    const homeClassName = currentPath === '/' ? 'selected' : null
-    const popularClassName = currentPath === '/popular' ? 'selected' : null
-    const accountClassName = currentPath === '/account' ? 'selected' : null
+    const {menuClicked} = this.state
+    const menuClassName = menuClicked ? 'sm-menu-container' : 'no-popup'
     return (
-      <nav>
-        <div className="navbar">
-          <div className="navbar-logo-link-container">
-            <Link to="/">
+      <nav className="nav-bar">
+        <div className="nav-bar-header-container">
+          <div className="nav-items-container">
+            <Link to="/" className="header-link">
               <img
-                src="https://res.cloudinary.com/dc2b69ycq/image/upload/v1669787785/Movies%20App/Movies_Logo_nu3gsl.png"
+                src="https://res.cloudinary.com/dck3ikgrn/image/upload/v1671795411/Movies%20App/Movies_Logo_iassdx.png"
                 alt="website logo"
-                className="website-logo"
+                className="header-logo"
               />
             </Link>
-
-            <ul className="header-link-container">
-              <Link to="/" className="route-link">
-                <li className={`header-link ${homeClassName}`}>Home</li>
-              </Link>
-              <Link to="/popular" className="route-link">
-                <li className={`header-link ${popularClassName}`}>Popular</li>
-              </Link>
+            <ul className="menu-container">
+              <li className="menu-item">
+                <Link to="/" className="header-link">
+                  Home
+                </Link>
+              </li>
+              <li className="menu-item">
+                <Link to="/popular" className="header-link">
+                  Popular
+                </Link>
+              </li>
             </ul>
           </div>
-          <div className="search-and-avatar">
-            <div className="search-container">
-              {showInput && (
-                <input
-                  type="search"
-                  className="search-input"
-                  onChange={this.onChangeSearchInput}
-                  onKeyDown={this.onKeyDownEnter}
-                />
-              )}
-              <Link to="/search">
-                <button
-                  type="button"
-                  className="search-button"
-                  onClick={this.onShowSearchInput}
-                  testid="searchButton"
-                >
-                  <HiOutlineSearch size={18} color="#ffffff" />
-                </button>
-              </Link>
-            </div>
+          <div className="nav-items-container">
+            <Link to="/search">
+              <button
+                type="button"
+                className="header-btn"
+                testid="searchButton"
+              >
+                <HiOutlineSearch className="header-icon" />
+              </button>
+            </Link>
             <Link to="/account">
               <img
-                src="https://res.cloudinary.com/dc2b69ycq/image/upload/v1669785109/Movies%20App/Vector_Avatar1_hiwft7.png"
+                src="https://res.cloudinary.com/dck3ikgrn/image/upload/v1671881458/Movies%20App/Avatarprofile_lyxntc.jpg"
                 alt="profile"
-                className="avatar-image"
+                className="profile-img"
               />
             </Link>
             <button
+              className="header-menu-btn"
               type="button"
-              className="menu-button"
-              onClick={this.toggleMenuItems}
+              onClick={this.onClickMenu}
             >
-              <MdMenuOpen />
+              <img
+                src="https://res.cloudinary.com/dck3ikgrn/image/upload/v1673089865/Movies%20App/add-to-queue_1_ac1xec.png"
+                alt="header menu"
+                className="header-icon"
+              />
             </button>
           </div>
         </div>
-
-        {showMenu && (
-          <ul className="menu-link-container">
-            <Link to="/" className="route-link">
-              <li className={`menu-link ${homeClassName}`}>Home</li>
+        <div className={menuClassName}>
+          <ul className="popup-menu-container">
+            <Link to="/" className="header-link">
+              <li className="sm-header-item">Home</li>
             </Link>
-            <Link to="/popular" className="route-link">
-              <li className={`menu-link ${popularClassName}`}>Popular</li>
+            <Link to="/popular" className="header-link">
+              <li className="sm-header-item">Popular</li>
             </Link>
-            <Link to="/account" className="route-link">
-              <li className={`menu-link ${accountClassName}`}>Account</li>
+            <Link to="/account" className="header-link">
+              <li className="sm-header-item">Account</li>
             </Link>
-            <li>
-              <button
-                type="button"
-                className="close-button"
-                onClick={this.toggleMenuItems}
-              >
-                <AiFillCloseCircle />
-              </button>
-            </li>
           </ul>
-        )}
+          <button type="button" className="close-button">
+            <img
+              src="https://res.cloudinary.com/dck3ikgrn/image/upload/v1673114477/Movies%20App/Shape_bx1ekl.png"
+              className="close-icon"
+              alt="close"
+              onClick={this.onClickMenu}
+            />
+          </button>
+        </div>
       </nav>
     )
   }

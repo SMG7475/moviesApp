@@ -1,25 +1,26 @@
-import {Switch, Route, Redirect} from 'react-router-dom'
-import LoginRoute from './components/LoginRoute'
-import HomeSection from './components/HomeSection'
-import PopularSection from './components/PopularSection'
-import AccountSection from './components/AccountSection'
-import SearchRoute from './components/SearchRoute'
-import MovieDetailSection from './components/MovieDetailSection'
-import NotFound from './components/NotFound'
+import {Route, Switch, Redirect} from 'react-router-dom'
+
+import Login from './components/Login'
 import ProtectedRoute from './components/ProtectedRoute'
+import Home from './components/Home'
+import PopularMovies from './components/PopularMovies'
+import MovieItem from './components/MovieItem'
+import Search from './components/Search'
+import Account from './components/Account'
+import NotFound from './components/NotFound'
+
 import './App.css'
 
 const App = () => (
   <Switch>
-    <Route exact path="/login" component={LoginRoute} />
-    <ProtectedRoute exact path="/" component={HomeSection} />
-    <ProtectedRoute exact path="/popular" component={PopularSection} />
-    <ProtectedRoute exact path="/account" component={AccountSection} />
-    <ProtectedRoute exact path="/search" component={SearchRoute} />
-    <ProtectedRoute exact path="/movies/:id" component={MovieDetailSection} />
+    <Route exact path="/login" component={Login} />
+    <ProtectedRoute exact path="/" component={Home} />
+    <ProtectedRoute exact path="/popular" component={PopularMovies} />
+    <ProtectedRoute exact path="/movies/:id" component={MovieItem} />
+    <ProtectedRoute exact path="/search" component={Search} />
+    <ProtectedRoute exact path="/account" component={Account} />
     <Route path="/not-found" component={NotFound} />
     <Redirect to="/not-found" />
   </Switch>
 )
-
 export default App
